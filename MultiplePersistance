@@ -1,0 +1,92 @@
+using System;
+
+namespace MultiplicativePersistance
+{
+
+    class Program
+    {
+        static int Persistance(long n)
+        {
+          
+            if (n < 0)
+            {
+                n = n * (-1);
+
+            }
+          else  if(n>-10 && n < 10)
+            {
+                return 0;
+            }
+            long product = 1;
+            while (n > 0)
+            {
+                long digit = n % 10;
+                n = n / 10;
+                product *= digit;
+                
+            }
+           int count = 1 + Persistance(product);
+            return count;
+        }
+        static int Persistance1(long[] productArray, long n)
+        {
+         
+            if (n < 0)
+            {
+                n = n * (-1);
+
+            }
+            else if (n > -10 && n < 10)
+            {
+                return 0;
+            }
+            long product = 1;
+           
+            while (n > 0)
+            {
+                long digit = n % 10;
+                n = n / 10;
+                product *= digit;             
+               
+
+            }
+
+            Replace(productArray, product);
+            int count = 1 + Persistance1(productArray,product);
+            return count;
+        }
+
+        static void Replace(long[] array, long value)
+        {
+          
+            for(int i = 0; i < array.Length; i++)
+            {
+                if (array[i] ==0)
+                {
+                    array[i] = value;
+                    break;
+                }
+            }
+           
+            
+
+        }
+        static void Main(string[] args)
+        {
+            Program p = new Program();
+
+            long n = 277777788888899;
+            long[] productArray = new long[12];
+            int persistance = Persistance1(productArray, n);
+            for (int i = 0; i < persistance; i++)
+            {
+                Console.WriteLine(productArray[i]);
+            }
+
+
+            // Replace(productArray, 4);
+              Console.WriteLine(persistance);
+
+        }
+    }
+}
